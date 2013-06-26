@@ -24,7 +24,6 @@ typedef Angel::vec4  point4;
 #define SCALE_VECTOR 0.5
 float zoom_z = 10;
 
-
 GLuint vPosition;
 GLuint vNormal;
 
@@ -389,19 +388,6 @@ display( void )
   glutSwapBuffers();
 }
 
-//----------------------------------------------------------------------------
-
-void idle( void )
-{
-  //Theta[Axis] += 0.01;
-
-  //if ( Theta[Axis] > 360.0 ) {
-  //Theta[Axis] -= 360.0;
-  //}
-    
-  //glutPostRedisplay();
-}
-
 void Timer(int extra)
 {
   Theta[Axis] += 0.1;
@@ -413,13 +399,11 @@ void Timer(int extra)
   glutTimerFunc(10,Timer,0);
 }
 
-//----------------------------------------------------------------------------
 
 void keyboard( unsigned char key, int x, int y )
 {
   switch( key ) {
-  case 'X':
-    cout << "pitch up" << endl;
+  case 'X':    cout << "pitch up" << endl;
     v = normalize(cos(DegreesToRadians*step)*v 
 		  - sin(DegreesToRadians*step)*n);
     n = normalize(sin(DegreesToRadians*step)*v 
@@ -475,24 +459,18 @@ void keyboard( unsigned char key, int x, int y )
 
 void reshape( int width, int height )
 {
-  //cout << "reshape" << endl;
-  //vec4 light_position_distant = vec4(0.0, 100.0, 1.0, 0.0);//Angel::identity();
-  //  light_position_distant = 
-  //cout << light_position_distant << endl;
-  
   glViewport( 0, 0, width, height );
 
   GLfloat aspect = GLfloat(width)/height;
   mat4  projection = Perspective( 45.0, aspect, 0.0001, 300.0 );
 
   glUniformMatrix4fv( Projection, 1, GL_TRUE, projection );
-  //glUniformMatrix4fv(LightPosition, 1, GL_TRUE, light_position_distant);
 }
 
 void specialKeys(int key, int x, int y)
 {
-  //cout << "--keyboard2--" << endl;
   switch( key ) {
+
 
   case GLUT_KEY_UP: // MOVE FORWARD
     eye[0] -= SCALE_VECTOR * n[0];
@@ -519,9 +497,6 @@ void specialKeys(int key, int x, int y)
   }
   glutPostRedisplay();
 }
-
-//----------------------------------------------------------------------------
-
 int
 main( int argc, char **argv )
 {
